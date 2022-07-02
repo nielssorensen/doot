@@ -1,0 +1,75 @@
+#!/usr/bin/env bash
+
+set -e
+[ -z "${DEBUG}" ] || set -x
+
+usage() {
+  echo "doot
+
+  Usage:
+    doot file.dot
+  "
+}
+
+check_arg() {
+  if [[ -z "${filename}" ]]
+  then
+    echo "==> Please provide a dot file"
+    usage
+    exit 1
+  fi
+}
+
+check_system() {
+  if ! [[ "$(uname -s)" = "Darwin" ]]
+  then
+    echo "==> Running on a Mac?"
+    usage
+    exit 1
+  fi
+}
+
+check_open() {
+  if ! command -v open 2>&1
+  then
+    echo "==> Running on a Mac?" 1>&2
+    usage
+    exit 1
+  fi
+}
+
+check_dot() {
+  if ! command -v dot 2>&1
+  then
+    echo "==> Is graphviz installed?" 1>&2
+    usage
+    exit 1
+  fi
+}
+
+preflight_check() {
+    check_arg
+    check_system
+    check_open
+    check_dot
+}
+
+run_dot() {
+  dot -Tpng "${filename}" -o "${png_output}"
+}
+
+open_png() {
+  open "${png_output}"
+}
+
+main() {
+  local filename=$1
+  local png_output="${filename%%dot}png"
+
+  preflight_check
+
+  run_dot "${filename}"
+  open_png
+}
+
+main "$@"

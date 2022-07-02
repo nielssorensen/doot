@@ -1,0 +1,18 @@
+doot
+==
+
+An bash program to wrap graphviz' dot program  
+and create PNG files from dot files  
+and open them on Apple computers
+
+Is it overkill? Maybe.  
+But then again, I've run dot and open enough to not want to do it anymore.
+
+Usage
+===
+
+Copy to either:
+- /usr/local/bin
+- your own user's bin/ directory
+
+`doot file.dot`
