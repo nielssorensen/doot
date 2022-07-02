@@ -30,7 +30,7 @@ check_system() {
 }
 
 check_open() {
-  if ! command -v open 2>&1
+  if ! command -v open > /dev/null
   then
     echo "==> Running on a Mac?" 1>&2
     usage
@@ -39,7 +39,7 @@ check_open() {
 }
 
 check_dot() {
-  if ! command -v dot 2>&1
+  if ! command -v dot > /dev/null
   then
     echo "==> Is graphviz installed?" 1>&2
     usage
